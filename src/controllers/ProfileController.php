@@ -5,7 +5,7 @@ use \core\Controller;
 use \src\handlers\UserHandler;
 use \src\handlers\PostHandler;
 
-Class HomeController extends Controller {
+Class ProfileController extends Controller {
 
     private $loggedUser;
 
@@ -16,18 +16,22 @@ Class HomeController extends Controller {
         }
     }
 
-    public function index() {
-        //separar o feed por páginas
-        $page = intval(filter_input(INPUT_GET, 'page'));
-        
-        $feed = PostHandler::getHomeFeed(
-            $this->loggedUser->id,
-            $page
-        );
+    public function index($atts = []) {
+        $id = $this->loggedUser->id;
 
-        $this->render('home', [
+        if(!empty($atts['id'])) {
+            $id = $atts['id'];
+        } 
+
+        $user = UserHandler::getUser($id);
+
+        if(!$user) {
+            $this->redirect('/');
+        }
+
+        $this->render('profile', [
             'loggedUser' => $this->loggedUser,
-            'feed' => $feed
+            'user' =>$user
         ]);
     }
 

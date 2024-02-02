@@ -4,5 +4,22 @@ use core\Router;
 $router = new Router();
 
 $router->get('/', 'HomeController@index');
-$router->get('/sobre/{nome}', 'HomeController@sobreP');
-$router->get('/sobre', 'HomeController@sobre');
+
+$router->get('/login', 'LoginController@signin');
+$router->post('/login', 'LoginController@signinAction');
+
+$router->get('/cadastro', 'LoginController@signup');
+$router->post('/cadastro', 'LoginController@signupAction');
+
+$router->post('/post/new', 'PostController@new');
+
+$router->get('/perfil/{id}', 'ProfileController@index'); // Primeiro por causa da validação em sequência.
+$router->get('/perfil', 'ProfileController@index');
+
+
+//$router->get('/pesquisar',
+
+//$router->get('/sair',
+//$router->get('/amigos',
+//$router->get('/fotos',
+//$router->get('/config',
