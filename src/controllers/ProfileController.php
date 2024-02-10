@@ -104,7 +104,7 @@ Class ProfileController extends Controller {
         ]);
     }
 
-    public function photo($atts = []) {
+    public function photos($atts = []) {
         // Detectando o usuario acessado
         $id = $this->loggedUser->id;
         if(!empty($atts['id'])) {
@@ -127,7 +127,7 @@ Class ProfileController extends Controller {
             $isFollowing = UserHandler::isFollowing($this->loggedUser->id, $user->id);
         }
 
-        $this->render('profile_friends', [
+        $this->render('profile_photos', [
             'loggedUser' => $this->loggedUser,
             'user' => $user,
             'isFollowing' => $isFollowing
