@@ -5,7 +5,7 @@ use \core\Controller;
 use \src\handlers\UserHandler;
 use \src\handlers\PostHandler;
 
-Class HomeController extends Controller {
+class HomeController extends Controller {
 
     private $loggedUser;
 
@@ -17,9 +17,8 @@ Class HomeController extends Controller {
     }
 
     public function index() {
-        //separar o feed por páginas
         $page = intval(filter_input(INPUT_GET, 'page'));
-        
+
         $feed = PostHandler::getHomeFeed(
             $this->loggedUser->id,
             $page

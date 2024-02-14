@@ -4,7 +4,7 @@ namespace src\controllers;
 use \core\Controller;
 use \src\handlers\UserHandler;
 
-Class SearchController extends Controller {
+class SearchController extends Controller {
 
     private $loggedUser;
 
@@ -17,11 +17,12 @@ Class SearchController extends Controller {
 
     public function index($atts = []) {
         $searchTerm = filter_input(INPUT_GET, 's');
+
         if(empty($searchTerm)) {
             $this->redirect('/');
         }
-
-        $users = UserHandler::searchUser($searchTerm);
+        
+        $users = UserHandler::searchUser( $searchTerm );
 
         $this->render('search', [
             'loggedUser' => $this->loggedUser,
@@ -29,7 +30,5 @@ Class SearchController extends Controller {
             'users' => $users
         ]);
     }
-
-
 
 }

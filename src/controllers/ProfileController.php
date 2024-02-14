@@ -5,7 +5,7 @@ use \core\Controller;
 use \src\handlers\UserHandler;
 use \src\handlers\PostHandler;
 
-Class ProfileController extends Controller {
+class ProfileController extends Controller {
 
     private $loggedUser;
 
@@ -19,13 +19,13 @@ Class ProfileController extends Controller {
     public function index($atts = []) {
         $page = intval(filter_input(INPUT_GET, 'page'));
 
-        // Detectando o usuario acessado
+        // Detectando o usuário acessado
         $id = $this->loggedUser->id;
         if(!empty($atts['id'])) {
             $id = $atts['id'];
-        } 
+        }
 
-        //Pegando informações do usuario
+        // Pegando informações do usuário
         $user = UserHandler::getUser($id, true);
         if(!$user) {
             $this->redirect('/');
@@ -35,14 +35,14 @@ Class ProfileController extends Controller {
         $dateTo = new \DateTime('today');
         $user->ageYears = $dateFrom->diff($dateTo)->y;
 
-        //Pegando o feed do usuario
+        // Pegando o feed do usuário
         $feed = PostHandler::getUserFeed(
-            $id, 
-            $page, 
+            $id,
+            $page,
             $this->loggedUser->id
         );
 
-        // Verificar se EU sigo o usuario
+        // Verificar se EU sigo o usuário
         $isFollowing = false;
         if($user->id != $this->loggedUser->id) {
             $isFollowing = UserHandler::isFollowing($this->loggedUser->id, $user->id);
@@ -50,7 +50,7 @@ Class ProfileController extends Controller {
 
         $this->render('profile', [
             'loggedUser' => $this->loggedUser,
-            'user' =>$user,
+            'user' => $user,
             'feed' => $feed,
             'isFollowing' => $isFollowing
         ]);
@@ -58,30 +58,26 @@ Class ProfileController extends Controller {
 
     public function follow($atts) {
         $to = intval($atts['id']);
+
         if(UserHandler::idExists($to)) {
             if(UserHandler::isFollowing($this->loggedUser->id, $to)) {
-                // deixar de seguir
                 UserHandler::unfollow($this->loggedUser->id, $to);
             } else {
-                // seguir
                 UserHandler::follow($this->loggedUser->id, $to);
             }
-            
-            
         }
 
         $this->redirect('/perfil/'.$to);
-
     }
 
     public function friends($atts = []) {
-        // Detectando o usuario acessado
+        // Detectando o usuário acessado
         $id = $this->loggedUser->id;
         if(!empty($atts['id'])) {
             $id = $atts['id'];
-        } 
+        }
 
-        //Pegando informações do usuario
+        // Pegando informações do usuário
         $user = UserHandler::getUser($id, true);
         if(!$user) {
             $this->redirect('/');
@@ -91,7 +87,7 @@ Class ProfileController extends Controller {
         $dateTo = new \DateTime('today');
         $user->ageYears = $dateFrom->diff($dateTo)->y;
 
-        // Verificar se EU sigo o usuario
+        // Verificar se EU sigo o usuário
         $isFollowing = false;
         if($user->id != $this->loggedUser->id) {
             $isFollowing = UserHandler::isFollowing($this->loggedUser->id, $user->id);
@@ -105,13 +101,13 @@ Class ProfileController extends Controller {
     }
 
     public function photos($atts = []) {
-        // Detectando o usuario acessado
+        // Detectando o usuário acessado
         $id = $this->loggedUser->id;
         if(!empty($atts['id'])) {
             $id = $atts['id'];
-        } 
+        }
 
-        //Pegando informações do usuario
+        // Pegando informações do usuário
         $user = UserHandler::getUser($id, true);
         if(!$user) {
             $this->redirect('/');
@@ -121,7 +117,7 @@ Class ProfileController extends Controller {
         $dateTo = new \DateTime('today');
         $user->ageYears = $dateFrom->diff($dateTo)->y;
 
-        // Verificar se EU sigo o usuario
+        // Verificar se EU sigo o usuário
         $isFollowing = false;
         if($user->id != $this->loggedUser->id) {
             $isFollowing = UserHandler::isFollowing($this->loggedUser->id, $user->id);

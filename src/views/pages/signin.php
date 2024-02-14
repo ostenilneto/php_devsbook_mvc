@@ -14,10 +14,9 @@
     </header>
     <section class="container main">
         <form method="POST" action="<?=$base;?>/login">
-
             <?php if(!empty($flash)): ?>
-                <div class="flash"><?php echo $flash; ?></div> 
-            <?php endif; ?> 
+                <div class="flash"><?php echo $flash; ?></div>
+            <?php endif; ?>
 
             <input placeholder="Digite seu e-mail" class="input" type="email" name="email" />
 

@@ -14,10 +14,9 @@
     </header>
     <section class="container main">
         <form method="POST" action="<?=$base;?>/cadastro">
-
             <?php if(!empty($flash)): ?>
-                <div class="flash"><?php echo $flash; ?></div> 
-            <?php endif; ?> 
+                <div class="flash"><?php echo $flash; ?></div>
+            <?php endif; ?>
 
             <input placeholder="Digite seu Nome Completo" class="input" type="text" name="name" />
 
@@ -27,21 +26,20 @@
 
             <input placeholder="Digite sua Data de Nascimento" class="input" type="text" name="birthdate" id="birthdate" />
 
-            <input class="button" type="submit" value="Cadastrar" />
+            <input class="button" type="submit" value="Fazer cadastro" />
 
             <a href="<?=$base;?>/login">Já tem conta? Faça o login</a>
         </form>
     </section>
-<script src="https://unpkg.com/imask"></script>    
+
+<script src="https://unpkg.com/imask"></script>
 <script>
-    IMask(
-        document.getElementById('birthdate'),
-        {
-            mask:'00/00/0000'
-        }
-    );
-
+IMask(
+    document.getElementById('birthdate'),
+    {
+        mask:'00/00/0000'
+    }
+);
 </script>
-
 </body>
 </html>

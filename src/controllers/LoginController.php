@@ -23,16 +23,14 @@ class LoginController extends Controller {
 
         if($email && $password) {
             $token = UserHandler::verifyLogin($email, $password);
-            if ($token) {
+            if($token) {
                 $_SESSION['token'] = $token;
                 $this->redirect('/');
-            }else {
+            } else {
                 $_SESSION['flash'] = 'E-mail e/ou senha não conferem.';
                 $this->redirect('/login');
             }
-
         } else {
-            $_SESSION['flash'] = 'Digite os campos de e-mail e/ou senha.';
             $this->redirect('/login');
         }
     }
@@ -56,9 +54,9 @@ class LoginController extends Controller {
 
         if($name && $email && $password && $birthdate) {
             $birthdate = explode('/', $birthdate);
-            if(count($birthdate)!=3) {
+            if(count($birthdate) != 3) {
                 $_SESSION['flash'] = 'Data de nascimento inválida!';
-                $this->redirect('/cadastro');                    
+                $this->redirect('/cadastro');
             }
 
             $birthdate = $birthdate[2].'-'.$birthdate[1].'-'.$birthdate[0];
@@ -66,7 +64,7 @@ class LoginController extends Controller {
                 $_SESSION['flash'] = 'Data de nascimento inválida!';
                 $this->redirect('/cadastro');
             }
-            
+
             if(UserHandler::emailExists($email) === false) {
                 $token = UserHandler::addUser($name, $email, $password, $birthdate);
                 $_SESSION['token'] = $token;
@@ -75,6 +73,7 @@ class LoginController extends Controller {
                 $_SESSION['flash'] = 'E-mail já cadastrado!';
                 $this->redirect('/cadastro');
             }
+
         } else {
             $this->redirect('/cadastro');
         }
